@@ -37,7 +37,7 @@ const CountdownTimer = () => {
         }, 1000);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [setStartTimeCountDown, startTimeCountDown]);
 
     // Formatear tiempo en mm:ss
     const formatTime = (seconds) => {

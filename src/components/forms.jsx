@@ -16,7 +16,7 @@ import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
 import { CentrosAcopioContext } from './centrosAcopioContext';
 import Roles from '../models/roles';
-import { AlertProvider, useAlert } from './alertContext';
+import { useAlert } from './alertContext';
 
 //CONSTANTES GLOBALES
 //permite solo ingreso de números
@@ -1155,7 +1155,7 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
         if (showModalEditProfile && initialValues.provincia && arrayLocalidades.length > 0) {
             handleChangeComboProvincia(initialValues.provincia);
         }
-    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile]);
+    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile, handleChangeComboProvincia]);
 
 
     return (
