@@ -1,6 +1,6 @@
 import { TittleModal, Select, FaEyeSlashIcon, FaEyeIcon, InputGroupBtnInField } from './styledComponents';
 import { Row, Col, Form, Container, Alert, FloatingLabel, InputGroup, Button, Modal } from 'react-bootstrap';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as formik from 'formik';
@@ -996,12 +996,12 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
     const [arrayLocalidades, setArrayLocalidades] = useState([]);
     const [opcionesComboCiudad, setOpcionesComboCiudad] = useState([]);
 
-    const getOpcionesCiudad = (provinciaId) => {
+    const getOpcionesCiudad = useCallback((provinciaId) => {
         return arrayLocalidades.filter(option =>
             option.id_nivel_territorial === 3 &&
             option.id_territorio_padre === parseInt(provinciaId)
         );
-    };
+    }, [arrayLocalidades]);
 
     const handleChangeComboProvincia = useCallback(async (provinciaId, setFieldValue, setTouched, validateField, touched) => {
         if (!provinciaId) {
@@ -1036,7 +1036,7 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
             // Validar el campo 'ciudad'
             await validateField('ciudad');
         }
-    }, [setOpcionesComboCiudad]);
+    }, [setOpcionesComboCiudad, getOpcionesCiudad]);
 
     //genero el json de validacón para el formulario dinámico
     //genero el json de valores iniciales del formulario
