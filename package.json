@@ -48,7 +48,6 @@
     "yup": "^1.4.0"
   },
   "scripts": {
-    "install": "npm ci --legacy-peer-deps",
     "start": "serve build -s -n -L -p $PORT",
     "dev": "react-scripts start",
     "build": "react-scripts build",
