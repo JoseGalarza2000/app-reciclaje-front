@@ -1003,7 +1003,7 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
         );
     };
 
-    const handleChangeComboProvincia = async (provinciaId, setFieldValue, setTouched, validateField, touched) => {
+    const handleChangeComboProvincia = useCallback(async (provinciaId, setFieldValue, setTouched, validateField, touched) => {
         if (!provinciaId) {
             setOpcionesComboCiudad([]);  // Limpiar opciones de ciudad
             if (setFieldValue) {
@@ -1036,7 +1036,7 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
             // Validar el campo 'ciudad'
             await validateField('ciudad');
         }
-    };
+    }, [setOpcionesComboCiudad]);
 
     //genero el json de validacón para el formulario dinámico
     //genero el json de valores iniciales del formulario
@@ -1150,13 +1150,12 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
     useEffect(() => {
         fetchLocalidades();  // Cargar territorios
     }, []); // Solo ejecuta al montar el componente
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(() => {
         if (showModalEditProfile && initialValues.provincia && arrayLocalidades.length > 0) {
             handleChangeComboProvincia(initialValues.provincia);
         }
-    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile]);
+    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile, handleChangeComboProvincia]);
 
 
     return (
