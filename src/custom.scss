@@ -1054,3 +1054,17 @@ textarea {
     width: 100%;
 }
 
+.carousel-dark .carousel-caption {
+    color: #FFF !important;
+    text-shadow: 2px 2px 3px #000 !important;
+}
+.carousel .carousel-caption {
+    color: #000;
+    text-shadow: 2px 2px 3px #FFF;
+}
+
+[data-bs-theme="dark"] .carousel .carousel-indicators,
+[data-bs-theme="dark"] .carousel .carousel-control-next,
+[data-bs-theme="dark"] .carousel .carousel-control-prev{
+    filter: invert(1) grayscale(100);
+}

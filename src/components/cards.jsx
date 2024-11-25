@@ -69,7 +69,7 @@ export const CardSolicitudReciclador = function ({ currentItems, setItems, msjEm
     };
 
     return (
-        <Row md={2} xl={3} xxl={4} sm={1} xs={1} className='cards-container mb-3'>
+        <Row md={2} xl={3} sm={1} xs={1} className='cards-container mb-3'>
             {
                 (solicitudesRecicladores && solicitudesRecicladores.length > 0) ? (
                     solicitudesRecicladores.map(value => (

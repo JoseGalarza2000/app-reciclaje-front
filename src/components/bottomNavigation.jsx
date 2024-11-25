@@ -9,11 +9,17 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import { Fab, Paper } from '@mui/material';
 import { scroller } from 'react-scroll';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Roles from '../models/roles';
+import { useAlert } from './alertContext';
 
 export default function FixedBottomNavigation() {
   const [value, setValue] = React.useState("inicio");
   const [isClient, setIsClient] = React.useState(false);
+  const navigate = useNavigate();
+  const userState = useSelector((store) => store.user);
+  const { showAlert } = useAlert();
 
   React.useEffect(() => {
     setIsClient(true);
@@ -40,6 +46,14 @@ export default function FixedBottomNavigation() {
       setValue('map'); // Activa el botón "Acopios" si se está cerca del final
     }
   };
+
+  const handleReciclar = function () {
+    if (!userState.id_usuario) {
+      showAlert("Antes debes iniciar sesion");
+    } else {
+      navigate("/Reciclar");
+    }
+  }
 
   React.useEffect(() => {
     if (isClient) {
@@ -107,18 +121,17 @@ export default function FixedBottomNavigation() {
           </BottomNavigation>
         </Paper>
       </Box>
-
-      <Fab
-        variant="extended"
-        sx={{ position: 'fixed', bottom: '1rem', right: '1rem' }}
-        className='reciclar-btn-fixed fw-bold'
-        onClick={() => setValue("reciclar")}
-        component={Link}
-        to="/Reciclar"
-      >
-        <RecyclingRoundedIcon sx={{ mr: 1 }} />
-        Reciclar
-      </Fab>
+      {userState.rol !== Roles.ORG &&
+        < Fab
+          variant="extended"
+          sx={{ position: 'fixed', bottom: '1rem', right: '1rem' }}
+          className='reciclar-btn-fixed fw-bold'
+          onClick={handleReciclar}
+        >
+          <RecyclingRoundedIcon sx={{ mr: 1 }} />
+          Reciclar
+        </Fab >
+      }
     </>
   );
 }

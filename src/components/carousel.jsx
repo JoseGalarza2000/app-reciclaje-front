@@ -8,12 +8,12 @@ export function CarouselPage({ arrCarousel }) {
   return (
     <>
       {(arrCarousel && arrCarousel.length > 0) ?
-        <Carousel variant="light" className='mt-2 mt-xl-0 mb-2 home-carousel' style={{ height: '20rem' }} interval={null}>
+        <Carousel variant={theme} className={`mt-2 mt-xl-0 mb-2 home-carousel ${theme === 'dark' ? 'carousel-dark' : ''}`} style={{ height: '20rem' }} interval={null}>
           {
             arrCarousel.map((item) => (
               <Carousel.Item key={item.id} className="w-100 h-100">
                 <img className="d-block w-100 h-100" src={item.imageURL} alt="slide" style={{ filter: "brightness(0.8)" }} />
-                <Carousel.Caption style={{ textShadow: `2px 2px 3px ${theme==="light" ? "#000" : "#FFF"}` }}>
+                <Carousel.Caption>
                   <h3>{item.title}</h3>
                   <p>{item.content}</p>
                 </Carousel.Caption>
