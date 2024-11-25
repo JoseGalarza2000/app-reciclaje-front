@@ -1,7 +1,5 @@
 import { Container, Image, Offcanvas, Navbar, NavDropdown, Nav, Row, Col } from 'react-bootstrap';
 import Login from './modalLoginSignUp';
-import { faX, faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from 'react';
 import { Link as LinkScroll } from 'react-scroll';
 import { Link } from 'react-router-dom';
@@ -32,10 +30,6 @@ export const NavbarsHome = function () {
   
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   
-  const handleToggleOffcanvas = () => {
-    setShowOffcanvas(!showOffcanvas);
-  };
-  
   return (
     <>
       <div className='navbar-nav sticky-top navbar-page-container'>
@@ -46,9 +40,6 @@ export const NavbarsHome = function () {
         >
           <Container>
             <Nav style={{ width: '9rem' }}>
-              <Navbar.Toggle onClick={handleToggleOffcanvas} aria-controls={`offcanvasNavbar-expand-lg`} className="d-md-block d-lg-none">
-                <FontAwesomeIcon icon={showOffcanvas === false ? faBars : faX} />
-              </Navbar.Toggle>
               <Link to="/" className='w-100'>
                 <Image
                   src={Logo}
