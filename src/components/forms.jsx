@@ -1150,7 +1150,8 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
     useEffect(() => {
         fetchLocalidades();  // Cargar territorios
     }, []); // Solo ejecuta al montar el componente
-
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (showModalEditProfile && initialValues.provincia && arrayLocalidades.length > 0) {
             handleChangeComboProvincia(initialValues.provincia);
