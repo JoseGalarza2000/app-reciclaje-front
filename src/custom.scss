@@ -631,9 +631,6 @@ textarea {
         /* Por ejemplo, un tamaño de fuente más pequeño para dispositivos móviles */
     }
 
-    .name-user {
-        display: none;
-    }
 }
 
 @media (min-width: 1200px) {
@@ -997,6 +994,10 @@ textarea {
 
     .map-container {
         height: 21.25rem !important;
+    }
+
+    .name-user {
+        display: none;
     }
 }
 

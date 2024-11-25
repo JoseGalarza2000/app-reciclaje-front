@@ -49,7 +49,7 @@ export default function FixedBottomNavigation() {
 
   const handleReciclar = function () {
     if (!userState.id_usuario) {
-      showAlert("Antes debes iniciar sesion");
+      showAlert("Antes debes iniciar sesión");
     } else {
       navigate("/Reciclar");
     }
