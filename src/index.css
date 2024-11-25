@@ -1,0 +1,162 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color-app: #7ECAB3;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.form-floating > label{
+  padding: 1rem 0;
+}
+
+.form-floating > .form-control{
+  padding: 1rem 0;
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-floating > .form-control-plaintext ~ label, .form-floating > .form-control:focus ~ label, .form-floating > .form-control:not(:placeholder-shown) ~ label, .form-floating > .form-select ~ label{
+  color: var(--primary-color-app);
+}
+
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus,
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus,
+.form-select.is-valid:focus, .was-validated .form-select:valid:focus{
+  box-shadow: none;
+}
+
+.form-control.is-invalid:focus, .was-validated .form-control:invalid:focus,
+.form-control.is-invalid, .was-validated .form-control:invalid,
+.form-control.is-valid, .was-validated .form-control:valid,
+.form-control.is-valid:focus, .was-validated .form-control:valid:focus,
+.form-select.is-valid, .was-validated .form-select:valid,
+.form-select.is-valid:focus, .was-validated .form-select:valid:focus
+{
+  border-color: var(--primary-color-app);
+}
+
+.form-check-input:checked
+{
+  background-color: var(--primary-color-app);
+  border-color: var(--primary-color-app);
+}
+
+
+.form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-select ~ label::after{
+  background: none;
+}
+
+.navbar-toggler:focus
+{
+  box-shadow: none;
+}
+
+.navbar-toggler{
+  border: none;
+}
+
+#reciclaje{
+  position: relative;
+  top: -1.2rem;
+  background: var(--primary-color-app);
+  border-radius: 50%;
+  box-sizing: content-box;
+  display: flex !important;
+  justify-content: center;
+  fill: white;
+  aspect-ratio: 1 / 1;
+}
+
+.movil-menu-button{
+  fill: var(--primary-color-app);
+  cursor: pointer;
+}
+
+.movil-menu-button.active-movil{
+  box-sizing: border-box;
+  /*border-top: 3px solid var(--primary-color-app);*/
+  fill: var(--primary-color-app);
+}
+
+/* Estilo por defecto para el segundo hijo */
+.movil-menu-button .icon-bold {
+  display: none;
+}
+
+/* Estilo para el primer hijo cuando el enlace tiene la clase .active */
+.movil-menu-button.active-movil .icon {
+  display: none;
+}
+
+/* Estilo para el primer hijo cuando el enlace tiene la clase .active */
+.movil-menu-button.active-movil .icon-bold {
+  display: block;
+}
+
+/* Estilo para el segundo hijo cuando el enlace no tiene la clase .active */
+.movil-menu-button:not(.active-movil) .icon-bold {
+  display: none;
+}
+
+/*dropdown*/
+.dropdown-toggle.show::after
+{
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transition: transform .3s ease-in-out;
+}
+
+.dropdown-toggle::after
+{
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transition: transform .3s ease-in-out;
+}
+
+.img-profile{
+  width: 2.5rem;
+  height: 2.5rem;
+  border: solid 1px lightgrey;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  display: block !important;
+  opacity: 0;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all .3s ease-in;
+}
+.dropdown-menu.show {
+  display: block !important;
+  max-height: 500px;
+  opacity: 1;
+  padding: 0.5rem 0;
+}
+
+html{
+  scroll-behavior: auto !important;
+}
