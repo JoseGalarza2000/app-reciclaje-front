@@ -4,11 +4,11 @@ import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { SelectWithSearch } from '../components/searchCombo';
 import { Card } from '../components/cards';
-import { 
-    MaterialReactTable, 
-    useMaterialReactTable, 
-    MRT_EditActionButtons as MRTEditActionButtons, 
-    createRow 
+import {
+    MaterialReactTable,
+    useMaterialReactTable,
+    MRT_EditActionButtons as MRTEditActionButtons,
+    createRow
 } from 'material-react-table';
 import { mkConfig, generateCsv, download } from 'export-to-csv'; //or use your library of choice here
 import { MRT_Localization_ES } from 'material-react-table/locales/es';
@@ -34,10 +34,11 @@ import {
     useQuery,
     useQueryClient,
 } from '@tanstack/react-query';
-import { ModalProfile } from './profilePage';
+import { getDefaultImg, ModalProfile } from './profilePage';
 import { StarRating } from '../components/startRating';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Roles from '../models/roles';
 
 const csvConfig = mkConfig({
     fieldSeparator: ',',
@@ -45,7 +46,7 @@ const csvConfig = mkConfig({
     useKeysAsHeaders: true,
 });
 
-const CRUDExportTableCSV = ({ dataReciclador, tiposMateriales}) => {
+const CRUDExportTableCSV = ({ dataReciclador, tiposMateriales }) => {
     const [validationErrors, setValidationErrors] = useState({});
     const userState = useSelector((store) => store.user);
 
@@ -519,13 +520,13 @@ function validateReciclaje(reciclaje) {
 
 }
 
-const recicladorOption = function ({ nombres, apellidos, url_foto, cedula }) {
+const recicladorOption = function ({ nombres, apellidos, url_foto, cedula, genero }) {
 
     return (
         <>
             <Row>
                 <Col xs={2} className='text-center'>
-                    <Image className="image-profile" src={url_foto} roundedCircle style={{ width: "3rem", height: "3rem" }} />
+                    <Image className="image-profile" src={url_foto || getDefaultImg(Roles.RECICLADOR, genero)} roundedCircle style={{ width: "3rem", height: "3rem" }} />
                 </Col>
                 <Col>
                     <p className='mb-0'>
@@ -547,7 +548,7 @@ const RecicladorInfo = function ({ dataReciclador, detalleReciclaje }) {
         <>
             <Row className='p-2'>
                 <Col xs={5} md={4} xl={2} className='text-center'>
-                    <Image className='image-profile' src={dataReciclador.url_foto} roundedCircle style={{ cursor: "pointer" }} onClick={() => { setShowModalProfile(true) }} />
+                    <Image className='image-profile' src={dataReciclador.url_foto || getDefaultImg(Roles.RECICLADOR, dataReciclador.genero)} roundedCircle style={{ cursor: "pointer" }} onClick={() => { setShowModalProfile(true) }} />
                 </Col>
                 <Col xs={7} md={8} xl={10} className='card-reciclador-pesos-info'>
                     <p className='fw-light fs-3 m-0'>{dataReciclador.nombres + " " + dataReciclador.apellidos}</p>
@@ -573,7 +574,7 @@ const RecicladorInfo = function ({ dataReciclador, detalleReciclaje }) {
     )
 }
 
-function RegistroPesos(){
+function RegistroPesos() {
     const [optionsSearch, setOptionsSearch] = useState('');
     const [dataReciclador, setDataReciclador] = useState('');
     //const [loading, setLoading] = useState(true); // cargando
@@ -620,9 +621,9 @@ function RegistroPesos(){
                     let options = [];
                     //console.log(array)
                     array.forEach(x => {
-                        options.push({ value: x, label: (x.nombre_corto + " - " + x.cedula), component: recicladorOption({ nombres: x.nombres, apellidos: x.apellidos, url_foto: x.url_foto, cedula: x.cedula }), key: x.id_usuario })
+                        options.push({ value: x, label: (x.nombre_corto + " - " + x.cedula), component: recicladorOption({ nombres: x.nombres, apellidos: x.apellidos, url_foto: x.url_foto, cedula: x.cedula, genero: x.genero }), key: x.id_usuario })
                     });
-    
+
                     setOptionsSearch(options);
                 } else {
                     console.error('Error al obtener las solicitudes:', response.data.error);

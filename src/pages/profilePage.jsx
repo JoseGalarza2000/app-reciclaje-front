@@ -14,6 +14,25 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Roles from '../models/roles';
+import imgMale from '../media/default-male-avatar_lantJVD.jpg';
+import imgFemale from '../media/default-female-avatar.jpg';
+import imgOrg from '../media/default-empresa-avatar.jpg';
+
+
+export const getDefaultImg = function(rolUser, sexo) {
+    console.log(rolUser, sexo, imgOrg, imgMale, imgFemale)
+    if (rolUser === Roles.ORG) {
+        return imgOrg;
+    }else{
+        if(sexo === "M"){
+            return imgMale;
+        }else if(sexo === "F"){
+            return imgFemale;
+        }
+    }
+    return imgOrg;
+    
+}
 
 export const ProfileContent = function ({ userData, isVisitante, setUserData }) {
     const { theme } = useTheme();
@@ -25,7 +44,7 @@ export const ProfileContent = function ({ userData, isVisitante, setUserData }) 
         <>
             <Container
                 fluid
-                className={`p-0 background-page ${userData.informacion_general.sexo && userData.informacion_general.sexo.value === "Femenino" ? "background-page-rosa" : "background-page-azul"}`}
+                className={`p-0 background-page ${userData.informacion_general.sexo && userData.informacion_general.sexo.selected === "F" ? "background-page-rosa" : "background-page-azul"}`}
                 style={{ zIndex: (!isVisitante ? "-1" : "") }}
             />
             <Container fluid className="profile-container p-0" bg={theme === "dark" ? theme : ""}>
@@ -33,7 +52,7 @@ export const ProfileContent = function ({ userData, isVisitante, setUserData }) 
                     <div className={`profile-img-name ${isVisitante ? "" : "ms-xl-5"}`}>
                         <Row className={`align-items-center justify-content-center m-0 ${isVisitante ? "" : "justify-content-xl-start"}`}>
                             <Col xs="auto" className='text-center'>
-                                <img onClick={() => setShowModalImage(true)} className="profile-img" src={userData.url_foto} alt="avatar" />
+                                <img onClick={() => setShowModalImage(true)} className="profile-img" src={userData.url_foto ? userData.url_foto : getDefaultImg(userData.rol, userData.rol !== Roles.ORG ? userData.informacion_general.sexo.selected : "")} alt="avatar" />
                             </Col>
                         </Row>
                         <Row className={`justify-content-center m-0 ${isVisitante ? "" : "justify-content-xl-start"}`}>
@@ -150,7 +169,7 @@ export const ProfileContent = function ({ userData, isVisitante, setUserData }) 
             >
                 <Modal.Header closeButton className='border-0 modal-img-header'></Modal.Header>
                 <Modal.Body className='p-0'>
-                    <img src={userData.url_foto} style={{ width: '100%', height: 'auto' }} alt='perfil'/>
+                    <img src={userData.url_foto ? userData.url_foto : getDefaultImg(userData.rol, userData.rol !== Roles.ORG ? userData.informacion_general.sexo.selected : "")} style={{ width: '100%', height: 'auto' }} alt='perfil' />
                 </Modal.Body>
             </Modal>
             {
@@ -161,7 +180,7 @@ export const ProfileContent = function ({ userData, isVisitante, setUserData }) 
                             setUserData={setUserData}
                             setShowModalEditProfile={setShowModalEditProfile}
                             showModalEditProfile={showModalEditProfile}
-                            imgProfile={userData.url_foto}
+                            imgProfile={userData.url_foto ? userData.url_foto : getDefaultImg(userData.rol, userData.rol !== Roles.ORG ? userData.informacion_general.sexo.selected : "")}
                         />
                         {userData.rol === Roles.ORG && userData && userData.info_contacto && userData.info_contacto.redes_sociales &&
                             < FormEditSocialLinks
@@ -199,11 +218,11 @@ export function ModalProfile({ setShowModal, showModal, modalTitle, userData }) 
 }
 
 function ProfilePage() {
-const [loading, setLoading] = useState(true); // cargando
-const [userData, setUserData] = useState('');
+    const [loading, setLoading] = useState(true); // cargando
+    const [userData, setUserData] = useState('');
     const userState = useSelector((store) => store.user);
 
-    
+
 
     useEffect(() => {
         const fetchPerfil = async () => {
@@ -248,7 +267,7 @@ const [userData, setUserData] = useState('');
                         <>
                             {
                                 userData && (
-                                    <ProfileContent isVisitante={false} userData={userData} setUserData={setUserData}/>
+                                    <ProfileContent isVisitante={false} userData={userData} setUserData={setUserData} />
                                 )
                             }
                         </>

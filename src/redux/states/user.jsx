@@ -6,6 +6,7 @@ export const EmptyUserState = {
   nombre_corto: '',
   rol: '',
   url_foto: '',
+  sexo: '',
 };
 
 export const UserKey = 'user';

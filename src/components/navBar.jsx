@@ -14,25 +14,28 @@ import { PrivateRoutes, PublicRoutes } from '../models/routes';
 import { useTheme } from './themeContext';
 import FixedBottomNavigation from './bottomNavigation';
 import Roles from '../models/roles';
+import Logo from '../media/logo_app.svg';
+import { getDefaultImg } from '../pages/profilePage';
+
 
 export const NavbarsHome = function () {
   const { theme } = useTheme();
   const userState = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const logOut = () => {
     clearLocalStorage(UserKey);
     dispatch(resetUser());
     navigate(PublicRoutes.LOGIN, { replace: true });
   };
-
+  
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-
+  
   const handleToggleOffcanvas = () => {
     setShowOffcanvas(!showOffcanvas);
   };
-
+  
   return (
     <>
       <div className='navbar-nav sticky-top navbar-page-container'>
@@ -48,7 +51,7 @@ export const NavbarsHome = function () {
               </Navbar.Toggle>
               <Link to="/" className='w-100'>
                 <Image
-                  src="https://rafaeloxj.pythonanywhere.com/imagenes/logo_app.svg"
+                  src={Logo}
                   className="img-fluid svg-logo"
                   data-bs-theme={theme === "dark" ? theme : "light"}
                   style={{ width: '80%' }}
@@ -60,14 +63,14 @@ export const NavbarsHome = function () {
               {!userState.id_usuario ? <Login /> :
                 (
                   <NavDropdown /*menuVariant='dark'*/
-                    renderMenuOnMount={true}
-                    className="d-block"
-                    title={
-                      <>
+                  renderMenuOnMount={true}
+                  className="d-block"
+                  title={
+                    <>
                         <label className='me-1 name-user'>
                           {userState.nombre_corto}
                         </label>
-                        <img className="img-profile" src={userState.url_foto} alt='perfil'/>
+                        <img className="img-profile" src={userState.url_foto ? userState.url_foto : getDefaultImg(userState.rol, userState.rol !== Roles.ORG ? userState.sexo : "")} alt='perfil'/>
                       </>
                     }
                     id="navbarScrollingDropdown"
@@ -83,7 +86,7 @@ export const NavbarsHome = function () {
                         </>
                         :
                         <Link className="dropdown-item" to={"/"+PrivateRoutes.RECICLAR}>Reciclar</Link>
-                    }
+                      }
                     <NavDropdown.Divider />
                     <Link className="dropdown-item" onClick={logOut} style={{ color: 'red' }}>Cerrar sesión</Link>
                   </NavDropdown>
@@ -97,7 +100,7 @@ export const NavbarsHome = function () {
           className="subNavBarDesktop d-none d-lg-flex p-0 m-0"
           bg={theme === "dark" ? theme : ""}
           data-bs-theme={theme === "dark" ? theme : ""}
-        >
+          >
 
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-lg`}
@@ -119,7 +122,7 @@ export const NavbarsHome = function () {
                   duration={500}
                   style={{ cursor: 'pointer' }}
                   isDynamic
-                >
+                  >
                   Inicio
                 </LinkScroll>
                 <LinkScroll
@@ -131,7 +134,7 @@ export const NavbarsHome = function () {
                   duration={500}
                   style={{ cursor: 'pointer' }}
                   isDynamic
-                >
+                  >
                   Quienes somos
                 </LinkScroll>
                 <LinkScroll
@@ -143,7 +146,7 @@ export const NavbarsHome = function () {
                   duration={500}
                   style={{ cursor: 'pointer' }}
                   isDynamic
-                >
+                  >
                   Información
                 </LinkScroll>
                 <LinkScroll
@@ -173,7 +176,7 @@ export const NavbarsHome = function () {
 
 export const NavbarPage = function ({ startElement, titleNav, endElement, fluid = false}) {
   const { theme } = useTheme();
-
+  
   return (
     <div className='navbar-nav sticky-top navbar-page-container' >
       <Navbar
@@ -181,7 +184,7 @@ export const NavbarPage = function ({ startElement, titleNav, endElement, fluid 
         data-bs-theme={theme === "dark" ? theme : "light"}
         className='NavbarPage navBarDesktop'
         style={{ border: "none" }}
-      >
+        >
         <Container fluid={fluid}>
           <Row className="w-100 m-0 align-items-center">
             <Col className='h-100 p-0'>

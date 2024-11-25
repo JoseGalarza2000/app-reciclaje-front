@@ -7,7 +7,7 @@ import ToastAutohide from '../components/toasts';
 import { FaEyeIcon } from './styledComponents';
 import PlaceHolderPage from './placeHolderPage';
 import { faFaceFrown, faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { ModalProfile } from '../pages/profilePage';
+import { getDefaultImg, ModalProfile } from '../pages/profilePage';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -17,6 +17,7 @@ import { Skeleton, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { ReciclarContext } from './reciclarContext';
 import { useTheme } from './themeContext';
+import Roles from '../models/roles';
 
 export const Card = function ({ children, cardStyle, ...props }) {
     const marginTopStyle = props.style?.marginTop;
@@ -77,8 +78,8 @@ export const CardSolicitudReciclador = function ({ currentItems, setItems, msjEm
                                 <div className='card-reciclador-info-foto'>
                                     <img
                                         className="profile-img"
-                                        src={value.url_foto}
-                                        alt="foto"
+                                        src={value.url_foto || getDefaultImg(Roles.RECICLADOR, value.genero)}
+                                        alt="perfil"
                                         style={{ border: "3px solid #ccc" }}
                                     />
                                     <p>{value.nombre_corto}</p>
@@ -187,8 +188,8 @@ export const CardReciclador = function ({ currentItems, setItems, msjEmpty }) {
                                 <div className='card-reciclador-info-foto'>
                                     <img
                                         className="profile-img"
-                                        src={value.url_foto}
-                                        alt="foto"
+                                        src={value.url_foto || getDefaultImg(Roles.RECICLADOR, value.genero)}
+                                        alt="perfil"
                                         style={{ border: "3px solid #ccc" }}
                                     />
                                     <p>{value.nombre_corto}</p>
@@ -345,7 +346,7 @@ export const GetDistaciaTime = function ({ location }) {
         if (showFormReciclar && location && location[0] && localizacionReciclador && localizacionReciclador.lat && localizacionReciclador.lng) {
             fetchData(); // Llama a la función asincrónica
         }
-        
+
     }, [localizacionReciclador, showFormReciclar, location]);
 
 
@@ -545,7 +546,7 @@ export const CardsSolicitudRecoleccion = function () {
                         // Escuchar el evento 'nuevo_solicitud' que se está enviando desde Django
                         channel.bind('solicitudes_aceptadas_canceladas', function (data) {
                             console.log('Nueva solicitud aceptada o cancelada:', data);
-                            
+
                             // Actualizar el estado filtrando la solicitud correspondiente
                             setSolicitudes(solicitudes => solicitudes.filter(solicitud => solicitud.id_solicitud !== data.id_solicitud));
                         });

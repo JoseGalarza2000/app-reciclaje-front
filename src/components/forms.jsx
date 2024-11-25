@@ -17,6 +17,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { CentrosAcopioContext } from './centrosAcopioContext';
 import Roles from '../models/roles';
 import { useAlert } from './alertContext';
+import { getDefaultImg } from '../pages/profilePage';
 
 //CONSTANTES GLOBALES
 //permite solo ingreso de números
@@ -1116,8 +1117,9 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
                     nombre_corto = nombre + " " + apellido;
                 }
                 const updatedUser = {
-                    url_foto: response.data.data.url_foto,
-                    nombre_corto: nombre_corto
+                    url_foto: data_.url_foto,
+                    nombre_corto: nombre_corto,
+                    sexo: data_.rol !== Roles.ORG ? data_.informacion_general.sexo.selected : ''
                 };
                 // Dispatch para actualizar el estado
                 dispatch(updateUser(updatedUser));
@@ -1157,6 +1159,9 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
         }
     }, [initialValues.provincia, arrayLocalidades, showModalEditProfile, handleChangeComboProvincia]);
 
+    useEffect(() => {
+        setProfileImage(null);
+    }, [showModalEditProfile, setProfileImage]);
 
     return (
         <Modal
@@ -1192,8 +1197,8 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
                                             <label htmlFor="formFile" style={{ cursor: 'pointer' }}>
                                                 <img
                                                     className="profile-img"
-                                                    src={profileImage || userData.url_foto}
-                                                    alt="avatar"
+                                                    src={profileImage || (userData.url_foto ? userData.url_foto : getDefaultImg(userData.rol, userData.rol !== Roles.ORG ? userData.informacion_general.sexo.selected : ""))}
+                                                    alt="perfil"
                                                     style={{ border: "3px solid #ccc" }}
                                                 />
                                                 <FontAwesomeIcon className="edit-profile-img location-icon" icon={faPenToSquare} fontSize="24" />

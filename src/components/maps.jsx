@@ -23,7 +23,8 @@ import { CentrosAcopioContext } from './centrosAcopioContext';
 import { CarouselFotos } from './carousel';
 import { Button as ButtonBootstrap } from "react-bootstrap";
 import { CustomModal } from './modals';
-import { ModalProfile } from '../pages/profilePage';
+import { getDefaultImg, ModalProfile } from '../pages/profilePage';
+import Roles from '../models/roles';
 
 // Corrige los íconos para evitar el problema de los íconos de marcador rotos
 delete L.Icon.Default.prototype._getIconUrl;
@@ -291,7 +292,7 @@ const InformacionReciclador = ({ id_reciclador }) => {
                 (dataReciclador ?
                     (
                         <div className='d-flex flex-wrap justify-content-center' >
-                            <img className="img-profile" src={dataReciclador.url_foto} alt='perfil' />
+                            <img className="img-profile" src={dataReciclador.url_foto|| getDefaultImg(dataReciclador.rol, dataReciclador.informacion_general.sexo.selected)} alt='perfil' />
 
                             <span className='w-100 fw-bold'>
                                 {dataReciclador.informacion_general.nombres.value.split(" ")[0] + " " + dataReciclador.informacion_general.apellidos.value.split(" ")[0]}
@@ -362,7 +363,7 @@ const InformacionSolicitante = ({ id_usuario }) => {
                 (dataSolicitante ?
                     (
                         <div className='d-flex flex-wrap justify-content-center' >
-                            <img className="img-profile" src={dataSolicitante.url_foto} alt='perfil' />
+                            <img className="img-profile" src={dataSolicitante.url_foto || getDefaultImg(dataSolicitante.rol, dataSolicitante.informacion_general.sexo.selected)} alt='perfil' />
 
                             <span className='w-100 fw-bold'>
                                 {dataSolicitante.informacion_general.nombres.value.split(" ")[0] + " " + dataSolicitante.informacion_general.apellidos.value.split(" ")[0]}
@@ -847,7 +848,7 @@ export const CentroAcopioData = ({ objCentroAcopio, isVisitante }) => {
                     <Card >
                         <div className='d-flex gap-2 pt-2 pb-2'>
                             <div className='w-auto'>
-                                <img className="img-profile" src={objCentroAcopio.organizacion.url_foto} alt='perfil' />
+                                <img className="img-profile" src={objCentroAcopio.organizacion.url_foto || getDefaultImg(Roles.ORG, "")} alt='perfil' />
                             </div>
                             <div className='w-auto d-flex flex-wrap'>
                                 <label className='me-1 fw-bold w-100' style={{ color: 'var(--bs-primary)' }}>
