@@ -1635,7 +1635,8 @@ export function FormularioCentroAcopio(props) {
     const schema = (idCentroAcopio) => yup.object().shape({
         // Solo incluirá 'id_centro' si 'idCentroAcopio' tiene valor.
         ...(idCentroAcopio ? {
-            id_centro: formValidations.text,
+            id_centro: yup.string()
+                .required('El campo es obligatorio')
         } : {}),
         ubicacion: yup.string()
             .required('El campo es obligatorio'),
