@@ -1155,7 +1155,7 @@ export function FormEditProfile({ userData, setShowModalEditProfile, showModalEd
         if (showModalEditProfile && initialValues.provincia && arrayLocalidades.length > 0) {
             handleChangeComboProvincia(initialValues.provincia);
         }
-    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile, handleChangeComboProvincia]);
+    }, [initialValues.provincia, arrayLocalidades, showModalEditProfile]);
 
 
     return (

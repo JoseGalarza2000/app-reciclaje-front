@@ -40,6 +40,7 @@
     "react-scroll": "^1.9.0",
     "react-star-rating-component": "^1.4.1",
     "sass": "^1.75.0",
+    "serve": "^14.2.4",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
@@ -47,7 +48,7 @@
     "yup": "^1.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve build -s -n -L -p $PORT",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
