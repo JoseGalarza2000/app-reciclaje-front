@@ -11,16 +11,24 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReciclarProvider } from './components/reciclarContext';
 import { CentrosAcopioProvider } from './components/centrosAcopioContext';
+import HomeContent from './pages/homePage';
+import ProfilePage from './pages/profilePage';
+import RecicladoresPage from './pages/recicladoresPage';
+import RegistroPesos from './pages/registroPesos';
+import ReciclarPage from './pages/ReciclarPage';
+import CentrosAcopioPage from './pages/centrosAcopioPage';
 
 const queryClient = new QueryClient();
 
 // Lazy loading de componentes
+/*
 const HomeContent = lazy(() => import('./pages/homePage'));
 const ProfilePage = lazy(() => import('./pages/profilePage'));
 const RecicladoresPage = lazy(() => import('./pages/recicladoresPage'));
 const RegistroPesos = lazy(() => import('./pages/registroPesos'));
 const ReciclarPage = lazy(() => import('./pages/ReciclarPage'));
 const CentrosAcopioPage = lazy(() => import('./pages/centrosAcopioPage'));
+*/
 
 function App() {
   return (
