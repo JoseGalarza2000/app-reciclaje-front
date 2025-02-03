@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import AuthGuard from './guards/auth.guard';
@@ -19,16 +19,6 @@ import ReciclarPage from './pages/ReciclarPage';
 import CentrosAcopioPage from './pages/centrosAcopioPage';
 
 const queryClient = new QueryClient();
-
-// Lazy loading de componentes
-/*
-const HomeContent = lazy(() => import('./pages/homePage'));
-const ProfilePage = lazy(() => import('./pages/profilePage'));
-const RecicladoresPage = lazy(() => import('./pages/recicladoresPage'));
-const RegistroPesos = lazy(() => import('./pages/registroPesos'));
-const ReciclarPage = lazy(() => import('./pages/ReciclarPage'));
-const CentrosAcopioPage = lazy(() => import('./pages/centrosAcopioPage'));
-*/
 
 function App() {
   return (
